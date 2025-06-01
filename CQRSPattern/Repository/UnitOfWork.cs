@@ -7,13 +7,13 @@ namespace CQRSPattern.Repository
     {
         private readonly ApplicationDbContext _context;
 
-        public IUserRepository Name { get; }
-
-        public UnitOfWork(ApplicationDbContext context,
-                            IUserRepository userRepository)
+        
+        public Dictionary<Type, object> Repositories = new Dictionary<Type, object>();
+        public UnitOfWork(ApplicationDbContext context
+                           )
         {
             _context = context;
-            Name = userRepository;
+           
         }
 
 
@@ -36,6 +36,16 @@ namespace CQRSPattern.Repository
             }
         }
 
+        public IGenericRepository<T> AsyncRepositories<T>() where T : class
+        {
+            if (Repositories.Keys.Contains(typeof(T)))
+            {
+                return Repositories[typeof(T)] as IGenericRepository<T>;
+            }
 
+            IGenericRepository<T> repo = new ApplicationRepository<T>(_context);
+            Repositories.Add(typeof(T), repo);
+            return repo;
+        }
     }
 }

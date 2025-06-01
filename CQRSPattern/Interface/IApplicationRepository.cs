@@ -3,8 +3,7 @@ using CQRSPattern.Model;
 
 namespace CQRSPattern.Interface
 {
-    public interface IUserRepository : IGenericRepository<UserModel>
+    public interface IApplicationRepository<T> : IGenericRepository<T> where T : class
     {
-        
     }
 }

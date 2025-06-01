@@ -1,6 +1,8 @@
-﻿namespace CQRSPattern.DTO
+﻿using MediatR;
+
+namespace CQRSPattern.DTO
 {
-    public class UserDto
+    public class UserDto 
     {
 
         public string Name { get; set; }

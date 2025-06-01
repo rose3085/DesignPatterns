@@ -36,7 +36,16 @@ namespace CQRSPattern.Repository
 
             return await _db.FindAsync(id);
         }
+        public async Task<T> GetByName(Expression<Func<T, bool>> filter)
+        {
+            //return await _db.FirstAsync(filter);
+            var results = await _db
+        .Where(filter)
+        .ToListAsync(); // Load results into memory
 
+            // Return a random result from the filtered results
+            return results.OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+        }
         public async Task<IEnumerable<T>> GetGeneric<T>(Expression<Func<T, bool>> filter = null) where T : class
         {
             

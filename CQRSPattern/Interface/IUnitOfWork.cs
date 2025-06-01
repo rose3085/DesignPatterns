@@ -4,7 +4,8 @@
     {
 
 
-        IUserRepository Name { get; }
+        IGenericRepository<T> AsyncRepositories<T>()
+            where T : class;
         int save();
     }
 }

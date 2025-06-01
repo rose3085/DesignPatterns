@@ -9,7 +9,7 @@ namespace CQRSPattern.Interface
         Task AddUser(T entities);
         Task<IEnumerable<T>> GetAllAsync();
 
-
+        Task<T> GetByName(Expression<Func<T, bool>> filter);
         // to get somehting without id using Generic
         // to use lambda expression we need Generic function
         Task<IEnumerable<T>> GetGeneric<T>(Expression<Func<T, bool>> filter = null) where T : class;
