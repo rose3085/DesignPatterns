@@ -28,7 +28,7 @@ namespace CQRSPattern.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public async Task<ActionResult<UserModel>> AddUser([FromBody]UserDto model)
+        public async Task<IActionResult> AddUser([FromBody]UserDto model)
         {
             //var users = _mapper.Map<UserModel>(model);
             //var result = await _userService.AddNewUser(model);
