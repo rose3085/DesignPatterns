@@ -26,7 +26,7 @@ namespace UnitOfWorkCrud.Services
         public async Task<IEnumerable<UserModel>> GetAllUser()
         {
             
-            var result = await _uow.Name.GetAllAsync();
+            var result = await _uow.AsyncRepositories<UserModel>().GetAllAsync();
             var user = _mapper.Map<IEnumerable<UserModel>>(result);
             if (user == null)
             {
@@ -43,7 +43,7 @@ namespace UnitOfWorkCrud.Services
             if (userDto != null)
             {
                 var user = _mapper.Map<UserModel>(userDto);
-                await _uow.Name.AddUser(user);
+                await _uow.AsyncRepositories<UserModel>().AddUser(user);
                 _uow.save(); 
 
                 return "User Added Successfully";
@@ -58,7 +58,7 @@ namespace UnitOfWorkCrud.Services
 
         public async Task<UserModel> GetSingleUser(int id)
         {
-            var result = await _uow.Name.GetById(id);
+            var result = await _uow.AsyncRepositories<UserModel>().GetById(id);
             var user = _mapper.Map<UserModel>(result);
             if (user == null)
             {
@@ -71,7 +71,7 @@ namespace UnitOfWorkCrud.Services
 
         public async Task<IEnumerable<UserModel>> FilerUserByName(string Name)
         {
-            var result = await _uow.Name.GetGeneric<UserModel>(a => a.Name== Name);
+            var result = await _uow.AsyncRepositories<UserModel>().GetGeneric<UserModel>(a => a.Name== Name);
             var user = _mapper.Map<IEnumerable<UserModel>>(result);
             if (user == null)
             {
